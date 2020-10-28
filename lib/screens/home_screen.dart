@@ -21,8 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<RandomUser> _randomUsersList = <RandomUser>[];
   ScrollController _scrollController;
 
+  Future getRandomUsersFuture;
+
   @override
   void initState() {
+    getRandomUsersFuture = getRandomUsers();
     _scrollController = ScrollController();
     _scrollController.addListener(() async {
       if (_scrollController.position.maxScrollExtent ==
@@ -84,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: FutureBuilder(
-          future: getRandomUsers(),
+          future: getRandomUsersFuture,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return ListView.builder(
               controller: _scrollController,
